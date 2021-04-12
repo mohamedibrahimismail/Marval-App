@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Marval App</string>
+    <string name="your_toke_expired_login_again">your token expired login again</string>
+    <string name="some_error">Something went wrong please try again</string>
+    <string name="error_no_internet_connection">Please Connect to Internet</string>
+    <string name="internal_storage" translatable="false">Internal storage</string>
+
+</resources>
