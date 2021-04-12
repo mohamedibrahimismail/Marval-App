@@ -244,4 +244,9 @@ dependencies {
     debugImplementation "com.willowtreeapps.hyperion:hyperion-geiger-counter:${rootProject.hyperion}"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-shared-preferences:${rootProject.hyperion}"
 
+
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
+    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
+
 }
