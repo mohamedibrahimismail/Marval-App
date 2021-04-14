@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorPrimarylight">#F2192637</color>
     <color name="colorPrimaryDarkTransparent">#D3212121</color>
+    <color name="body_color">#151515</color>
+    <color name="header_color">#1b1b1b</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorObject">#00C7FE</color>
     <color name="babyblue">#7FCEEE</color>

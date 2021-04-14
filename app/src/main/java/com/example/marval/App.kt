@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.example.marval.di.appModule
 import com.example.marval.network.retrofit.*
+import com.example.marval.utils.AppConstants.API_KEY
 import com.example.marval.utils.AppConstants.BASE_URL
+import com.example.marval.utils.AppConstants.HASH
 import com.readystatesoftware.chuck.ChuckInterceptor
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
@@ -83,11 +85,11 @@ class App : Application() {
                 var original = chain.request()
                 var httpUrl = original.url()
                 var newUrl1 = httpUrl.newBuilder()
-                    .addQueryParameter("distance_unit", loginPref.getDistanceUnit()).build()
+                    .addQueryParameter("apikey", API_KEY).build()
                 var newUr2 = newUrl1.newBuilder()
-                    .addQueryParameter("price_unit", loginPref.getCurrencyName()).build()
-                var newUr3 =
-                    newUr2.newBuilder().addQueryParameter("local", loginPref.getLang()).build()
+                    .addQueryParameter("hash", HASH).build()
+                var newUr3 = newUr2.newBuilder()
+                    .addQueryParameter("ts","thesoer").build()
                 var requestBuilder = original.newBuilder().url(newUr3)
                 var req = requestBuilder.build()
                 chain.proceed(req)

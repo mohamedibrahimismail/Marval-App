@@ -246,7 +246,8 @@ dependencies {
 
 
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'jp.wasabeef:blurry:4.0.0'
 
-    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
-
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 }
