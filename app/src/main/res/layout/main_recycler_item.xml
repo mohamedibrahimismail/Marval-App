@@ -26,7 +26,12 @@
             android:layout_height="130dp"
             android:scaleType="centerCrop"
             android:src="@drawable/holder_image"
-            app:riv_corner_radius="20dp" />
+            app:riv_corner_radius="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            />
 
         <com.github.mmin18.widget.RealtimeBlurView
             android:id="@+id/footer_item_layout"
