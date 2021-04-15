@@ -2,11 +2,9 @@ package  com.example.marval.network.retrofit
 
 import com.example.marval.model.GenericResponse
 import com.example.marval.model.main.ChractersListModel
+import com.example.marval.model.resource.ResourceModel
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Service is API call interface for retrofit
@@ -26,6 +24,26 @@ interface Service {
         @Query("offset") offset: Int,
         @Query("nameStartsWith") nameStartsWith: String,
     ): Observable<GenericResponse<ChractersListModel>>
+
+    @GET("/v1/public/characters/{characterId}/comics")
+    fun getComicsList(
+        @Path("characterId") characterId: String
+    ): Observable<GenericResponse<ResourceModel>>
+
+    @GET("/v1/public/characters/{characterId}/events")
+    fun getEventsList(
+        @Path("characterId") characterId: String
+    ): Observable<GenericResponse<ResourceModel>>
+
+    @GET("/v1/public/characters/{characterId}/series")
+    fun getSeriesList(
+        @Path("characterId") characterId: String
+    ): Observable<GenericResponse<ResourceModel>>
+
+    @GET("/v1/public/characters/{characterId}/stories")
+    fun getStoriesList(
+        @Path("characterId") characterId: String
+    ): Observable<GenericResponse<ResourceModel>>
 
 
 }

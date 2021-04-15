@@ -3,6 +3,7 @@ package com.example.marval.di
 import com.example.marval.network.AppRepository
 import com.example.marval.network.retrofit.LoginPref
 import com.example.marval.ui.base.viewmodel.CommanVM
+import com.example.marval.ui.details.DetailsVM
 import com.example.marval.ui.main.MainVM
 import com.example.marval.ui.search.SearchVM
 import org.koin.android.ext.koin.androidContext
@@ -24,4 +25,5 @@ val appModule = module {
     viewModel { CommanVM(get()) }
     viewModel { MainVM(get()) }
     viewModel { SearchVM(get()) }
+    viewModel { DetailsVM(get()) }
 }

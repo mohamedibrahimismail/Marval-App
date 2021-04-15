@@ -4,22 +4,28 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import com.example.marval.R
 import com.example.marval.model.main.Result
 import com.example.marval.ui.base.BaseActivity
 import com.example.marval.utils.bindImage
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kotlinx.android.synthetic.main.activity_details.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DetailsActivity : BaseActivity() {
-
+    private val detailVM: DetailsVM by viewModel()
     override fun getActivityView(): Int {
         return R.layout.activity_details
     }
 
     override fun afterInflation(savedInstance: Bundle?) {
-
+        setupObserver()
+        detailVM.getComicsList(details.id.toString())
+        detailVM.getEventsList(details.id.toString())
+        detailVM.getSeriesList(details.id.toString())
+        detailVM.getStoriesList(details.id.toString())
         appbar_layout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 //  Collapsed
@@ -41,19 +47,39 @@ class DetailsActivity : BaseActivity() {
 
         name_txt.text = details.name
         description_txt.text = details.description
-        main_image.bindImage(details.thumbnail.path+"."+ details.thumbnail.extension)
+        main_image.bindImage(details.thumbnail.path + "." + details.thumbnail.extension)
 
-        var comic_adapter = ComicsAdapter(details.comics.items)
-        comics_recycler_view.adapter = comic_adapter
+    }
 
-        var event_adapter = ComicsAdapter(details.events.items)
-        events_recycler_view.adapter = event_adapter
+    fun setupObserver() {
+        detailVM.loading.observe(this, Observer {
+            showLoading(it)
+        })
+        detailVM.comicsList.observe(this, Observer {
+            if (!it.results.isNullOrEmpty()) {
+                var comic_adapter = ComicsAdapter(it.results)
+                comics_recycler_view.adapter = comic_adapter
+            }
+        })
+        detailVM.eventsList.observe(this, Observer {
+            if (!it.results.isNullOrEmpty()) {
+                var adapter = ComicsAdapter(it.results)
+                events_recycler_view.adapter = adapter
+            }
+        })
+        detailVM.seriesList.observe(this, Observer {
+            if (!it.results.isNullOrEmpty()) {
+                var adapter = ComicsAdapter(it.results)
+                series_recycler_view.adapter = adapter
+            }
+        })
 
-        var series_adapter = ComicsAdapter(details.series.items)
-        series_recycler_view.adapter = series_adapter
-
-        var stories_adapter = ComicsAdapter(details.stories.items)
-        stories_recycler_view.adapter = stories_adapter
+        detailVM.storiesList.observe(this, Observer {
+            if (!it.results.isNullOrEmpty()) {
+                var adapter = ComicsAdapter(it.results)
+                stories_recycler_view.adapter = adapter
+            }
+        })
     }
 
     companion object {

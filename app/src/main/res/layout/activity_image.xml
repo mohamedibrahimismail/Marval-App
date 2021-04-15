@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.details.ImageActivity"
+    android:background="@color/colorPrimaryDarkTransparent"
+    >
+    <com.jsibbold.zoomage.ZoomageView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/myZoomageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoCenter="true"
+        app:zoomage_autoResetMode="UNDER"
+        app:zoomage_maxScale="8"
+        app:zoomage_minScale="0.6"
+        app:zoomage_restrictBounds="false"
+        app:zoomage_translatable="true"
+        app:zoomage_zoomable="true" />
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/details_back_transparent"
+        android:padding="@dimen/dp_10"
+        android:src="@drawable/ic_baseline_arrow_back" />
+
+
+</RelativeLayout>

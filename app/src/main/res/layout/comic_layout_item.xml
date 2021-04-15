@@ -3,8 +3,7 @@
     android:layout_width="125dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
-    >
+    android:padding="5dp">
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,22 +11,37 @@
         android:layout_height="160dp"
         app:cardCornerRadius="5dp">
 
-        <ImageView
-            android:id="@+id/comic_image"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/marvel_logo" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/loader"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/loading_animation" />
+
+            <ImageView
+                android:id="@+id/comic_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/marvel_logo" />
+        </RelativeLayout>
+
+
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/comic_txt"
-        android:layout_marginTop="@dimen/dp_10"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
         android:text="jhjubjmbnjb jkn kj.,n.,m jkn kj,.m k.j,n k.j jmn "
-        />
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>
