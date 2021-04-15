@@ -18,7 +18,17 @@ class AppRepository : DataManager {
         return App.getService.getChractersList(limit = limit, offset = offset)
     }
 
-    override fun getSerchedList(): Observable<GenericResponse<ChractersListModel>> {
-        return App.getService.getSerchedList()
+    override fun getSerchedList(
+        limit: Int,
+        offset: Int,
+        nameStartsWith: String
+    ): Observable<GenericResponse<ChractersListModel>> {
+        return App.getService.getSerchedList(
+            limit = limit,
+            offset = offset,
+            nameStartsWith = nameStartsWith
+        )
     }
+
+
 }

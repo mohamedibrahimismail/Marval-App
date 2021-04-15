@@ -61,20 +61,21 @@ class SearchAdapter(var listResults: List<Result>) : RecyclerView.Adapter<Common
                 val mySpannable = character_name.text as Spannable
                 val back = BackgroundColorSpan(resources.getColor(R.color.selected_character))
                 var index: Int = filteredList.get(position).name.indexOf(searched_text.get(0))
-                mySpannable.setSpan(
-                    back,
-                    1,
-                    searched_text.length,
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-                )
+//                mySpannable.setSpan(
+//                    back,
+//                    1,
+//                    searched_text.length,
+//                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+//                )
                 if (index >= 0) {
-                    var last:Int = searched_text.length-1
-                    mySpannable.setSpan(
-                        back,
-                        index,
-                        last,
-                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-                    )
+                    var last: Int = searched_text.length - 1
+                    if (index < last)
+                        mySpannable.setSpan(
+                            back,
+                            index,
+                            last,
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
                 }
                 // var index: Int = filteredList.get(position).name.indexOf(searched_text)
                 // val sb = SpannableStringBuilder(filteredList.get(position).name)

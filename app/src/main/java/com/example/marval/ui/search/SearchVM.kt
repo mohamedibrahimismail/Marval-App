@@ -18,10 +18,10 @@ class SearchVM(private val repository: AppRepository) : BaseViewModel() {
     var charactersList: MutableLiveData<ChractersListModel> = MutableLiveData()
 
 
-    fun getCharactersList() {
+    fun getCharactersList(nameStartsWith: String) {
         loading.value = true
         mCompositeDisposable.add(
-            repository.getSerchedList()
+            repository.getSerchedList(100, 0, nameStartsWith = nameStartsWith)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object :

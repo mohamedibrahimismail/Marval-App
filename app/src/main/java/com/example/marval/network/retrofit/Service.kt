@@ -22,6 +22,9 @@ interface Service {
 
     @GET("v1/public/characters")
     fun getSerchedList(
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
+        @Query("nameStartsWith") nameStartsWith: String,
     ): Observable<GenericResponse<ChractersListModel>>
 
 
