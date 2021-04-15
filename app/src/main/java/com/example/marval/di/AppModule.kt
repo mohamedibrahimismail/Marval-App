@@ -4,6 +4,7 @@ import com.example.marval.network.AppRepository
 import com.example.marval.network.retrofit.LoginPref
 import com.example.marval.ui.base.viewmodel.CommanVM
 import com.example.marval.ui.main.MainVM
+import com.example.marval.ui.search.SearchVM
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -22,4 +23,5 @@ val appModule = module {
     //viewmodel
     viewModel { CommanVM(get()) }
     viewModel { MainVM(get()) }
+    viewModel { SearchVM(get()) }
 }

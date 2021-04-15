@@ -4,5 +4,11 @@
     <string name="some_error">Something went wrong please try again</string>
     <string name="error_no_internet_connection">Please Connect to Internet</string>
     <string name="internal_storage" translatable="false">Internal storage</string>
+    <string name="description">Description</string>
+    <string name="comics">Comics</string>
+    <string name="events">Events</string>
+    <string name="series">Series</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_check_network_connectoin">please check network connectoin !</string>
 
 </resources>

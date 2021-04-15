@@ -7,7 +7,11 @@
     <color name="body_color">#151515</color>
     <color name="header_color">#1b1b1b</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="selected_character">#8e2025</color>
+    <color name="title_color">#ff898e</color>
     <color name="colorObject">#00C7FE</color>
+    <color name="color_search_body">#EE202020</color>
+    <color name="color_search_item">#2d2d2d</color>
     <color name="babyblue">#7FCEEE</color>
     <color name="colorYellow">#ffbf00</color>
     <color name="btnLogIn">#454545</color>

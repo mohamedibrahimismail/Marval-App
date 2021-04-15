@@ -3,16 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/white"
+    android:background="@color/colorPrimaryDarkTransparent"
     android:gravity="center"
     android:id="@+id/noInternetLY"
     android:visibility="gone"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:scaleType="fitXY"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_signal_cellular_connected_no_internet"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -20,10 +24,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:textColor="#99000000"
-        android:textSize="24sp" />
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="@string/please_check_network_connectoin"
+        />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/retryBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

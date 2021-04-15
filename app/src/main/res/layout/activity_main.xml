@@ -26,6 +26,7 @@
             android:src="@drawable/marvel_logo" />
 
         <ImageView
+            android:id="@+id/search"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentStart="true"
@@ -37,6 +38,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:scrollbars="vertical"
         android:layout_above="@+id/pagination_loader"
         android:id="@+id/main_recycler_view"
         android:layout_width="match_parent"

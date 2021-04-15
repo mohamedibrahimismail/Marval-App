@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_search_body"
+    android:orientation="vertical"
+    tools:context=".ui.search.SearchActivity">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_weight=".9"
+            android:background="@drawable/search_background_edite_text"
+            android:drawableStart="@drawable/ic_baseline_search_white"
+            android:drawablePadding="10dp"
+            android:elevation="8dp"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/cancel_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/title_color" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:id="@+id/search_recyclerview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        tools:itemCount="5"
+        tools:listitem="@layout/search_result_item" />
+</LinearLayout>

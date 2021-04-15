@@ -19,14 +19,10 @@ interface Service {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
     ): Observable<GenericResponse<ChractersListModel>>
-//
-//    @GET("sirvices")
-//    fun getServices(): Observable<GenericResponse<MutableList<ServiceModel>>>
-//
-//    @POST("complete_resevation")
-//    fun completeReservation(
-//        @Body completereServation: CompletereServation
-//    ): Observable<GenericResponse<ServiceModel>>
+
+    @GET("v1/public/characters")
+    fun getSerchedList(
+    ): Observable<GenericResponse<ChractersListModel>>
 
 
 }
