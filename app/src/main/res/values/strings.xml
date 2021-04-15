@@ -11,5 +11,6 @@
     <string name="cancel">Cancel</string>
     <string name="please_check_network_connectoin">please check network connectoin !</string>
     <string name="search_for_character">Search for a character...</string>
+    <string name="stories">Stories</string>
 
 </resources>

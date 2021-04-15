@@ -9,7 +9,7 @@ data class Result(
     val name: String,
     val resourceURI: String,
     val series: Comics,
-    val stories: Stories,
+    val stories: Comics,
     val thumbnail: Thumbnail,
     val urls: List<Url>
 )

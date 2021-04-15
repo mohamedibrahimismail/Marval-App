@@ -51,6 +51,9 @@ class DetailsActivity : BaseActivity() {
 
         var series_adapter = ComicsAdapter(details.series.items)
         series_recycler_view.adapter = series_adapter
+
+        var stories_adapter = ComicsAdapter(details.stories.items)
+        stories_recycler_view.adapter = stories_adapter
     }
 
     companion object {

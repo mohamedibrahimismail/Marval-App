@@ -54,6 +54,7 @@
         android:src="@drawable/loading_animation" />
 
     <androidx.recyclerview.widget.RecyclerView
+
         android:visibility="gone"
         android:scrollbars="vertical"
         android:id="@+id/search_recyclerview"

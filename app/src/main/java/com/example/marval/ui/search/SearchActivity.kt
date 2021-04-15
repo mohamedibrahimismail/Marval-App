@@ -35,9 +35,9 @@ class SearchActivity : BaseActivity() {
 
     fun setupObserver() {
         searchVM.loading.observe(this, Observer {
-            if(it){
+            if (it) {
                 loader.visibility = View.VISIBLE
-            }else{
+            } else {
                 loader.visibility = View.GONE
             }
         })
@@ -60,16 +60,13 @@ class SearchActivity : BaseActivity() {
             }
         })
         searchVM.charactersList.observe(this, Observer {
-                setupRecyclerView(it.results)
+            setupRecyclerView(it.results)
         })
 
     }
 
     fun setupRecyclerView(results: List<Result>) {
         adapter = SearchAdapter(results);
-        var linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        search_recyclerview.layoutManager = linearLayoutManager
         search_recyclerview.adapter = adapter
     }
 
