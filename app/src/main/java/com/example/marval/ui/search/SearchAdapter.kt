@@ -72,7 +72,7 @@ class SearchAdapter(var listResults: List<Result>) : RecyclerView.Adapter<Common
                     mySpannable.setSpan(
                         back,
                         index,
-                        index,
+                        last,
                         Spannable.SPAN_INCLUSIVE_EXCLUSIVE
                     )
                 }
