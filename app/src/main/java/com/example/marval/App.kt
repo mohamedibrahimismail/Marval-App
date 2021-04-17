@@ -8,7 +8,7 @@ import com.example.marval.network.retrofit.*
 import com.example.marval.utils.AppConstants.API_KEY
 import com.example.marval.utils.AppConstants.BASE_URL
 import com.example.marval.utils.AppConstants.HASH
-import com.readystatesoftware.chuck.ChuckInterceptor
+//import com.readystatesoftware.chuck.ChuckInterceptor
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -32,7 +32,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        chuckInterceptor = ChuckInterceptor(this)
+       // chuckInterceptor = ChuckInterceptor(this)
         createApi(null, APInterceptor(), APIContentInterceptor())
         initCalligraphyConfig()
         startKoin(this, listOf(appModule))

@@ -7,49 +7,43 @@ import com.example.marval.model.main.ChractersListModel
 import com.example.marval.network.AppRepository
 import com.example.marval.network.retrofit.CallbackWrapper
 import com.example.marval.ui.base.BaseViewModel
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 private const val TAG = "MainVM"
 
 class SearchVM(private val repository: AppRepository) : BaseViewModel() {
 
+    private val autoCompletePublishSubject = PublishRelay.create<String>()
 
     var charactersList: MutableLiveData<ChractersListModel> = MutableLiveData()
 
+    init {
+        configureAutoComplete()
+    }
+
+    private fun configureAutoComplete() {
+        autoCompletePublishSubject
+            .debounce(100, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                repository.getSerchedList(100, 0, nameStartsWith = it).subscribeOn(Schedulers.io())
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ result ->
+                charactersList.value = result.data
+                loading.value = false
+            }, { t: Throwable? -> Timber.w(t, "Failed to get search results") })
+
+    }
 
     fun getCharactersList(nameStartsWith: String) {
         loading.value = true
-        mCompositeDisposable.add(
-            repository.getSerchedList(100, 0, nameStartsWith = nameStartsWith)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object :
-                    CallbackWrapper<GenericResponse<ChractersListModel>>() {
-                    override fun onSuccess(t: GenericResponse<ChractersListModel>) {
-                        loading.value = false
-                        charactersList.postValue(t.data)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        super.onError(e)
-                        loading.value = false
-                        Log.e(TAG, "onError: " + e.message)
-                    }
-
-                    override fun onFail(t: String?) {
-                        loading.value = false
-                        //kotlin.error.postValue(t)
-                        Log.e(TAG, "onFail: " + t)
-                    }
-
-                    override fun onFail(t: Map<String, ArrayList<String>>) {
-                        loading.value = false
-                        Log.e(TAG, "onFail: " + t)
-
-                    }
-                })
-        )
+        autoCompletePublishSubject.accept(nameStartsWith)
     }
 
 

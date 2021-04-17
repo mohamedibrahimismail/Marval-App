@@ -21,8 +21,8 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 
 private const val TAG = "MainActivityAdapter"
 
-class SearchAdapter(var listResults: List<Result>) : RecyclerView.Adapter<CommonVH>() {
-    var searched_text = ""
+class SearchAdapter(var searched_text: String = "", var listResults: List<Result>) :
+    RecyclerView.Adapter<CommonVH>() {
     var filteredList: MutableList<Result> = arrayListOf()
 
     init {
@@ -60,40 +60,13 @@ class SearchAdapter(var listResults: List<Result>) : RecyclerView.Adapter<Common
                 )
                 val mySpannable = character_name.text as Spannable
                 val back = BackgroundColorSpan(resources.getColor(R.color.selected_character))
-                var index: Int = filteredList.get(position).name.indexOf(searched_text.get(0))
-//                mySpannable.setSpan(
-//                    back,
-//                    1,
-//                    searched_text.length,
-//                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-//                )
-                if (index >= 0) {
-                    var last: Int = searched_text.length - 1
-                    if (index < last)
-                        mySpannable.setSpan(
-                            back,
-                            index,
-                            last,
-                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-                        )
-                }
-                // var index: Int = filteredList.get(position).name.indexOf(searched_text)
-                // val sb = SpannableStringBuilder(filteredList.get(position).name)
-//                if (index > 0) {
-//                    val fcs =
-//                        BackgroundColorSpan(this.context.resources.getColor(R.color.selected_character)) //specify color here
-//                    sb.setSpan(
-//                        fcs,
-//                        index,
-//                        index + searched_text.length - 1,
-//                        Spannable.SPAN_INCLUSIVE_INCLUSIVE
-//                    )
-////                index = SpannableStringBuilder(filteredList.get(position).name).indexOf(
-////                    searched_text,
-////                    index + 1
-////                )
-//                    character_name.text = sb
-//                }
+
+                mySpannable.setSpan(
+                    back,
+                    0,
+                    searched_text.length,
+                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                )
 
 
             } else {
@@ -102,32 +75,6 @@ class SearchAdapter(var listResults: List<Result>) : RecyclerView.Adapter<Common
 
         }
     }
-
-    fun filter(text: String) {
-        this.searched_text = text
-        filteredList.clear()
-        if (text.toString().trim().isEmpty()) {
-            filteredList.addAll(listResults)
-            searched_text = ""
-        } else {
-            searched_text = text.toLowerCase()
-            for (item in listResults) {
-                if (item.name.toLowerCase().contains(text)
-                ) {
-                    filteredList.add(item)
-                }
-            }
-        }
-        notifyDataSetChanged()
-    }
-
-//    fun addToList(added_list: List<Result>) {
-//        var old = list.size
-//        var new = added_list.size - 1
-//        this.list.addAll(added_list)
-//        notifyItemRangeInserted(old, new)
-//    }
-
 
     override fun getItemCount(): Int {
         return filteredList.size
