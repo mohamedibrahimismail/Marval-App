@@ -3,6 +3,7 @@ package  com.example.marval.network.retrofit
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import kotlin.jvm.Throws
 
 /**
  * AuthInterceptor used to send access token as header
