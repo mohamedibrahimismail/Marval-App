@@ -1,7 +1,6 @@
 package com.example.marval.di
 
 import com.example.marval.network.AppRepository
-import com.example.marval.network.retrofit.LoginPref
 import com.example.marval.ui.base.viewmodel.CommanVM
 import com.example.marval.ui.details.DetailsVM
 import com.example.marval.ui.main.MainVM
@@ -18,7 +17,6 @@ val appModule = module {
 
     //repos
     factory { AppRepository() }
-    factory { LoginPref(androidContext()) }
 
 
     //viewmodel

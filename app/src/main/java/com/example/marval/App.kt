@@ -28,7 +28,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  */
 class App : Application() {
 
-    val pref: LoginPref by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -36,7 +35,6 @@ class App : Application() {
         createApi(null, APInterceptor(), APIContentInterceptor())
         initCalligraphyConfig()
         startKoin(this, listOf(appModule))
-        loginPref = pref
         isNotAuth = MutableLiveData()
         isNotAuth.value = false
 
@@ -64,7 +62,6 @@ class App : Application() {
         lateinit var getService: Service
 
         var chuckInterceptor: Interceptor? = null
-        lateinit var loginPref: LoginPref
         lateinit var isNotAuth: MutableLiveData<Boolean>
 
         internal fun createApi(

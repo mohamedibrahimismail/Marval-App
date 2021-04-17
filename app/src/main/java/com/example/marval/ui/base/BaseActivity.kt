@@ -21,7 +21,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.marval.App
 import com.example.marval.R
-import com.example.marval.network.retrofit.LoginPref
 import com.example.marval.ui.base.viewmodel.CommanVM
 import com.example.marval.ui.main.MainActivity
 import com.example.marval.utils.NetworkUtils
@@ -58,19 +57,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseViewCallBack, BaseFragmen
 
         afterInflation(savedInstanceState)
 
-        App.isNotAuth.observe(this, Observer {
-            if (it == true) {
-                val loginPref: LoginPref = LoginPref(this)
-                loginPref.logout()
-                toast(getString(R.string.your_toke_expired_login_again))
-                var logoutIntent = Intent(this@BaseActivity, MainActivity::class.java)
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(logoutIntent)
-                App.isNotAuth.value = false
-                this@BaseActivity.finishAffinity()
-            }
-        })
 
         if (!isNetworkConnected()) {
             noInternetLY.visibility = View.VISIBLE
