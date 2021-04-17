@@ -241,4 +241,8 @@ dependencies {
 
     // RxRelay
     implementation "com.jakewharton.rxrelay2:rxrelay:2.0.0"
+
+    implementation 'com.fmsirvent:parallaxeverywhere:1.0.4'
+
+    implementation 'com.yayandroid:ParallaxRecyclerView:1.1'
 }
