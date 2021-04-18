@@ -16,7 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity android:name=".ui.details.ImageActivity"></activity>
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.search.SearchActivity"
+            android:theme="@style/AppTheme.Transparent"
+            />
         <activity android:name=".ui.details.DetailsActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"

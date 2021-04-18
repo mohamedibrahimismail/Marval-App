@@ -1,17 +1,19 @@
 package com.example.marval.ui.main
 
+import android.content.Intent
 import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import android.widget.ViewAnimator
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marval.R
 import com.example.marval.ui.base.BaseActivity
-import com.example.marval.ui.details.DetailsActivity
+import com.example.marval.ui.search.EXTRA_CIRCULAR_REVEAL_X
+import com.example.marval.ui.search.EXTRA_CIRCULAR_REVEAL_Y
 import com.example.marval.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -70,9 +72,21 @@ class MainActivity : BaseActivity() {
             }
         })
         search.setOnClickListener(View.OnClickListener {
-            startActivity(SearchActivity.getIntent(it.context,adapter.list))
+            //startActivity(SearchActivity.getIntent(it.context, adapter.list))
+            presentActivity(it)
         })
 
+    }
+
+    fun presentActivity(view: View) {
+        val options =
+            ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, "transition")
+        val revealX = (view.x + view.width / 2).toInt()
+        val revealY = (view.y + view.height / 2).toInt()
+        val intent = Intent(this, SearchActivity::class.java)
+        intent.putExtra(EXTRA_CIRCULAR_REVEAL_X, revealX)
+        intent.putExtra(EXTRA_CIRCULAR_REVEAL_Y, revealY)
+        ActivityCompat.startActivity(this, intent, options.toBundle())
     }
 
 

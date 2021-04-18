@@ -1,19 +1,21 @@
 package com.example.marval.ui.search
 
-import android.content.Context
-import android.content.Intent
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.animation.AccelerateInterpolator
 import android.widget.EditText
 import androidx.annotation.CheckResult
 import androidx.lifecycle.Observer
 import com.example.marval.R
 import com.example.marval.model.main.Result
 import com.example.marval.ui.base.BaseActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -21,24 +23,107 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.concurrent.TimeUnit
 
+
+const val EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X"
+const val EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y"
+
+var rootLayout: View? = null
+
+private var revealX = 0
+private var revealY = 0
 
 class SearchActivity : BaseActivity() {
     private val searchVM: SearchVM by viewModel()
-    lateinit var adapter:SearchAdapter
+    lateinit var adapter: SearchAdapter
     override fun getActivityView(): Int {
         return R.layout.activity_search
     }
 
     override fun afterInflation(savedInstance: Bundle?) {
+
+        setupTransition(savedInstance)
         setupViews()
         setupObserver()
     }
 
+    fun setupTransition(savedInstance: Bundle?) {
+
+        if (savedInstance == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
+            intent.hasExtra(EXTRA_CIRCULAR_REVEAL_Y)
+        ) {
+            rootLayout.visibility = View.INVISIBLE
+
+            revealX = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
+            revealY = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
+
+            val viewTreeObserver = rootLayout.viewTreeObserver
+            if (viewTreeObserver.isAlive) {
+                viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        revealActivity(revealX, revealY)
+                        rootLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                })
+            }
+
+        } else {
+            rootLayout.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onBackPressed() {
+        unRevealActivity()
+        super.onBackPressed()
+    }
+
+    protected fun revealActivity(x: Int, y: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val finalRadius = (Math.max(
+                rootLayout!!.width,
+                rootLayout!!.height
+            ) * 1.1).toFloat()
+
+            // create the animator for this view (the start radius is zero)
+            val circularReveal: Animator =
+                ViewAnimationUtils.createCircularReveal(rootLayout, x, y, 0f, finalRadius)
+            circularReveal.setDuration(400)
+            circularReveal.setInterpolator(AccelerateInterpolator())
+
+            // make the view visible and start the animation
+            rootLayout!!.visibility = View.VISIBLE
+            circularReveal.start()
+        } else {
+            finish()
+        }
+    }
+
+    protected fun unRevealActivity() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            finish()
+        } else {
+            val finalRadius = (Math.max(
+                rootLayout!!.width,
+                rootLayout!!.height
+            ) * 1.1).toFloat()
+            val circularReveal: Animator = ViewAnimationUtils.createCircularReveal(
+                rootLayout, revealX, revealY, finalRadius, 0f
+            )
+            circularReveal.setDuration(400)
+            circularReveal.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    rootLayout!!.visibility = View.INVISIBLE
+                    finish()
+                }
+            })
+            circularReveal.start()
+        }
+    }
+
     fun setupViews() {
         cancel_txt.setOnClickListener(View.OnClickListener {
-            finish()
+            onBackPressed()
         })
     }
 
@@ -80,19 +165,8 @@ class SearchActivity : BaseActivity() {
     }
 
     fun setupRecyclerView(results: List<Result>) {
-        adapter = SearchAdapter(search_box.text.trim().toString(),results);
+        adapter = SearchAdapter(search_box.text.trim().toString(), results);
         search_recyclerview.adapter = adapter
-    }
-
-    companion object {
-        lateinit var list_results: List<Result>
-        fun getIntent(
-            context: Context,
-            list: List<Result>
-        ): Intent {
-            this.list_results = list
-            return Intent(context, SearchActivity::class.java)
-        }
     }
 
     @ExperimentalCoroutinesApi
